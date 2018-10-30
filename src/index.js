@@ -67,14 +67,11 @@ function fn (a, b) {
    console.log(f()); // выведет 12
    console.log(f()); // выведет 13
  */
-function returnCounter(number) {
+function returnCounter(number = 0) {
     
-    function f () {
-        number += 1;
-        return number;
+    return function () {
+        return number += 1;
     }
-
-    return f();
 }
 
 /*
@@ -87,6 +84,13 @@ function returnCounter(number) {
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray() {
+    var array = [];
+
+    for ( var i = 0; i < arguments.length; i++ ) {
+        array[i] = arguments[i];
+    }
+
+    return array;
 }
 
 /*
