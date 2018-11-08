@@ -37,16 +37,16 @@ function map(array, fn) {
  */
 
 function reduce(array, fn, initial) {
-    var result = initial;
+    var inc;
 
     if (initial == undefined) {
-        result = 1;
+        inc = 1;
         initial = array[0];
     } else {
-        result = 0;
+        inc = 0;
     }
 
-    for (var i = result; i < array.length; i++) {
+    for (var i = inc; i < array.length; i++) {
         initial = fn(initial, array[i], i, array);
     }
 
