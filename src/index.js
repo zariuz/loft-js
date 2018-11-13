@@ -69,7 +69,6 @@ function isSomeTrue(array, fn) {
    - fn не является функцией (с текстом "fn is not a function")
  */
 function returnBadArguments(fn, ...args) {
-
     var newArray = [];
 
     if (typeof fn !== 'function') {
@@ -85,7 +84,6 @@ function returnBadArguments(fn, ...args) {
     }
 
     return newArray;
-
 }
 
 /*
