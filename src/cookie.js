@@ -43,10 +43,47 @@ const addButton = homeworkContainer.querySelector('#add-button');
 // таблица со списком cookie
 const listTable = homeworkContainer.querySelector('#list-table tbody');
 
-filterNameInput.addEventListener('keyup', function() {
-    // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
+function addCookie(name, value) {
+    document.cookie = name + '=' + value;
+}
+
+function delCookie(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1969 00:00:01 GMT';
+}
+
+listTable.addEventListener('click', function (e) {
+    if (e.target.innerText == 'Удалить') {
+        const tr = e.target.closest('tr');
+
+        delCookie(e.target.dataset.cookie);
+        listTable.removeChild(tr);
+    }
+});
+
+filterNameInput.addEventListener('keyup', function () {
+    filterTable();
 });
 
 addButton.addEventListener('click', () => {
-    // здесь можно обработать нажатие на кнопку "добавить cookie"
+    const name = addNameInput.value;
+    const value = addValueInput.value;
+
+    addCookie(name, value);
+    filterTable();
 });
+
+function filterTable() {
+    listTable.innerHTML = document.cookie.split('; ')
+        .map(item => ({
+            name: item.split('=')[0],
+            value: item.split('=')[1]
+        }))
+        .filter(item => item.name.includes(filterNameInput.value) || item.value.includes(filterNameInput.value))
+        .map(item =>
+            `<tr>
+              <td>${item.name}</td>
+              <td>${item.value}</td>
+              <td><button data-cookie=${item.name}>Удалить</button></td>
+            </tr>`
+        ).join('');
+}
